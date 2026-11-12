@@ -18,4 +18,4 @@ def test_three_tools_link_to_their_apps():
         "https://appautomationcodegenerator.streamlit.app/",
         "https://github.com/samramkumarqa/QA_playwrightMCP",
     ]
-    assert html.count('src="data:image/webp;base64,') == 3
+    assert "<img" not in html

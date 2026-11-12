@@ -1,20 +1,13 @@
 """QA AI Toolkit: one page that links the three AI tools for QA, in the order they are used."""
 
-import base64
-from pathlib import Path
-
 import streamlit as st
 
 from flow import FLOW_SVG
-
-ASSETS = Path(__file__).parent / "assets"
 
 TOOLS = [
     {
         "num": "01",
         "name": "AI Test Case Generator",
-        "image": "test-case-generator.webp",
-        "alt": "Review table of generated test cases with 18 approved and 100% coverage",
         "input": "BRD (PDF, Word, web page), photos or screenshots of it, or a meeting recording",
         "output": "Approved test cases in Excel, with a traceability matrix",
         "button": "Open the Test Case Generator",
@@ -23,8 +16,6 @@ TOOLS = [
     {
         "num": "02",
         "name": "AI Automation Code Generator",
-        "image": "automation-code-generator.webp",
-        "alt": "Playwright test report of the generated project: 5 passed, 1 skipped",
         "input": "The approved Excel and the live application",
         "output": "A Page Object Model project in Playwright (JavaScript) or Selenium (Java + TestNG)",
         "button": "Open the Automation Code Generator",
@@ -33,8 +24,6 @@ TOOLS = [
     {
         "num": "03",
         "name": "Playwright Test Fixer (MCP)",
-        "image": "test-fixer.webp",
-        "alt": "IntelliJ with the AI chat reporting that the fix was applied and the test passes",
         "input": "A failing Playwright test, inside IntelliJ",
         "output": "The cause and a one-line fix, applied after approval",
         "button": "Set it up from GitHub",
@@ -55,8 +44,6 @@ h1 {text-wrap: balance;}
 @media (max-width: 960px) { .tools {grid-template-columns: 1fr;} }
 .tool {display: flex; flex-direction: column; background: #fffffe; border: 1px solid #d8ddd6;
        border-radius: 14px; overflow: hidden; min-width: 0;}
-.shot {aspect-ratio: 16 / 10; width: 100%; object-fit: cover; object-position: left top; display: block;
-       border-bottom: 1px solid #d8ddd6; background: #eef0ec;}
 .tool-body {display: flex; flex-direction: column; gap: 12px; padding: 20px 22px 22px; flex: 1;}
 .tool-num {font-family: "JetBrains Mono", monospace; color: #0b6e70; font-weight: 700; font-size: .9rem;}
 .tool-name {font-size: 1.35rem; font-weight: 700; line-height: 1.25; color: #14213d; margin: 0;
@@ -75,14 +62,9 @@ a.tool-btn:focus-visible {outline: 3px solid #14213d; outline-offset: 2px;}
 """
 
 
-def _img(name: str) -> str:
-    return "data:image/webp;base64," + base64.b64encode((ASSETS / name).read_bytes()).decode()
-
-
 def card(t: dict) -> str:
     return (
         f'<div class="tool">'
-        f'<img class="shot" src="{_img(t["image"])}" alt="{t["alt"]}">'
         f'<div class="tool-body">'
         f'<span class="tool-num">{t["num"]}</span>'
         f'<div class="tool-name">{t["name"]}</div>'
